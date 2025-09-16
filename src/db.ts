@@ -1,11 +1,8 @@
 import {model, Schema} from "mongoose";
-import { ObjectId } from "mongodb";
 
-const userSchema = new Schema({
-    username: string,
-    password: string
+const UserSchema = new Schema({
+    username: {type: String, unique: true},
+    password: String
 })
 
-export const UserModal = new modal({
-    
-})
+export const UserModel = model("User", UserSchema);

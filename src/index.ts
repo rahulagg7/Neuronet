@@ -1,16 +1,27 @@
 import express from "express";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
+import { UserModel } from "./db.js";
 
 const app = express();
+app.use(express.json());
 
-app.post('/api/v1/signup', (req, res) => {
+app.post('/api/v1/signup', async (req, res) => {
     res.send('Hello World');
-    //zod validation
+    //zod validation 
+    // hash the password
+    //type module in package.json
+    //if user already exists it crashes the returm diff status code
     const username = req.body.username;
     const password = req.body.password;
-    
-    
+    await UserModel.create({
+        username: username,
+        password: password
+    });
+
+    res.json({
+        message: "user created successfully"
+    })
 })
 
 app.post('/api/v1/signin', (req, res) => {
